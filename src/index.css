@@ -174,7 +174,7 @@ textarea {
   /* 1 */
   line-height: 1.15;
   /* 1 */
-  margin: 0;
+  margin: 0px;
   /* 2 */
 }
 
@@ -790,7 +790,7 @@ dd {
   font-size: 1rem;
   text-transform: none;
   padding: 0.75rem 1.25rem;
-  margin: 0 0 0.5rem 0;
+  margin: 0.5rem 0.5rem 0.5rem 0.5rem;
   vertical-align: middle;
   text-align: center;
   cursor: pointer;
