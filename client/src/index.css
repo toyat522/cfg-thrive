@@ -926,8 +926,8 @@ select::-ms-expand {
 
 label {
   font-weight: 600;
+  font-size: 1.5rem;
   max-width: 100%;
-  display: block;
   margin: 1rem 0 0.5rem;
 }
 
