@@ -10,7 +10,7 @@ const Questions = () => {
 	const goals = [];
 
 	for (let i = 0; i < numGoals; i += 1) {
-		goals.push(<GoalElement key={i} number={i} />)
+		goals.push(<GoalElement key={i + 1} number={i + 1} />)
 	}
 
 	return (
@@ -64,7 +64,7 @@ const Questions = () => {
 				<label htmlFor="autism_n" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>No</label><br /><br />
 
 				<label>Service goals</label><br /><br /> 
-				{goals}		
+				{goals}
 				<button
 					type="button"
 					style={{margin: '0.5rem 0.5rem 2rem'}}
@@ -86,17 +86,20 @@ const Questions = () => {
 	)
 }
 
-const GoalElement = () => {
+const GoalElement = props => {
 	return (
 		<>	
-			<label htmlFor="goal" style={{fontSize:'1.2rem'}}>Goal</label><br />
-			<input type="text" id="goal" name="goal" />
-			<label style={{fontSize: '1rem', margin: '0 2rem 0 0rem'}}>Goal met?</label>
-			<input type="radio" id="goal_met_y" name="goal_met" value="Yes" />
-			<label htmlFor="goal_met_y" style={{margin:'0 2rem 0 0.3rem', fontSize: '1rem'}}>Yes</label>
-			<input type="radio" id="goal_met_n" name="goal_met" value="No" />
-			<label htmlFor="goal_met_n" style={{margin:'0 2rem 0 0.3rem', fontSize: '1rem'}}>No</label><br /><br /><br />
+			<label htmlFor={`goal${props.number}`} style={{fontSize:'1.2rem'}}>{`Goal ${props.number}`}</label><br />
+			<textarea id={`goal${props.number}`} name={`goal${props.number}`} />
 
+			<label style={{fontSize: '1rem', margin: '0 2rem 0 0rem'}}>Goal met?</label>
+			<input type="radio" id={`goal_met_y${props.number}`} name={`goal_met${props.number}`} value="Yes" />
+			<label htmlFor="goal_met_y" style={{margin:'0 2rem 0 0.3rem', fontSize: '1rem'}}>Yes</label>
+			<input type="radio" id={`goal_met_n${props.number}`} name={`goal_met${props.number}`} value="No" />
+			<label htmlFor={`goal_met_n${props.number}`} style={{margin:'0 2rem 0 0.3rem', fontSize: '1rem'}}>No</label><br /><br />
+		
+			<label htmlFor={`goal_met_date${props.number}`} style={{margin:'0 2rem 0 0.3rem', fontSize: '1rem'}}>Date met (leave blank if not applicable)</label>
+			<input type="text" id={`goal_met_date${props.number}`} name="" /><br /><br />
 		</>
 	)
 }
