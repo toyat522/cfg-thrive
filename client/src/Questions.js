@@ -27,17 +27,17 @@ const Questions = () => {
 				<label htmlFor="date">Date of file creation</label><br />
 				<input type="text" id="date" name="date" /><br />
 
-				<label htmlFor="name">Date of file creation</label><br />
+				<label htmlFor="name">Name</label><br />
 				<input type="text" id="name" name="name" /><br />
 
-				<label htmlFor="name">Date of file creation</label><br />
-				<input type="text" id="name" name="name" /><br />
+				<label htmlFor="birthdate">Birthdate</label><br />
+				<input type="text" id="birthdate" name="birthdate" /><br />
 
-				<label htmlFor="name">Date of file creation</label><br />
-				<input type="text" id="name" name="name" /><br />
+				<label htmlFor="phoneno">Phone Number</label><br />
+				<input type="text" id="phoneno" name="phoneno" /><br />
 
-				<label htmlFor="name">Date of file creation</label><br />
-				<input type="text" id="name" name="name" /><br />
+				<label htmlFor="address">Address</label><br />
+				<input type="text" id="address" name="address" /><br />
 
 				<label>Autism spectrum diagnosis?</label><br />
 				<input type="checkbox" id="autism_y" name="autism_y" value="Yes" />
