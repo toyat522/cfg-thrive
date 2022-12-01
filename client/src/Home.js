@@ -17,8 +17,8 @@ const Home = () => {
 			</button>
 			<div className="buttons" style={{textAlign: 'center'}}>
 				<button onClick={()=>navigate('/questions')}>New Client</button>
-				<button onClick={()=>navigate('/confirm')}>Add/Edit Client</button>
-				<button onClick={()=>navigate('/confirm')}>Activate/Inactivate Client</button>
+				<button onClick={()=>navigate('/confirm', {state: {fromEdit: true}})}>Add/Edit Client</button>
+				<button onClick={()=>navigate('/confirm', {state: {fromEdit: false}})}>Activate/Inactivate Client</button>
 				<button onClick={()=>navigate('/stats')}>Summary</button>
 			</div>
 		</>
