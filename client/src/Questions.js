@@ -39,6 +39,14 @@ const Questions = () => {
 				<label htmlFor="address">Address</label><br />
 				<input type="text" id="address" name="address" /><br />
 
+				<label>Gender</label><br />
+				<input type="checkbox" id="gender" name="gender_m" value="M" />
+				<label htmlFor="gender_m" style={{margin:'0 2rem 0 0.3rem', fontSize: '1rem'}}>Male</label>
+				<input type="checkbox" id="gender_f" name="gender_f" value="F" />
+				<label htmlFor="gender_f" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>Female</label>
+				<input type="checkbox" id="gender_o" name="gender_o" value="O" />
+				<label htmlFor="gender_o" style={{marginLeft: '0.7rem', fontSize: '1rem'}}>Other</label><br /><br />
+
 				<label>Autism spectrum diagnosis?</label><br />
 				<input type="checkbox" id="autism_y" name="autism_y" value="Yes" />
 				<label htmlFor="autism_y" style={{margin:'0 2rem 0 0.3rem', fontSize: '1rem'}}>Yes</label>
@@ -51,11 +59,20 @@ const Questions = () => {
 				<input type="radio" id="life_func_n" name="life_func" value="No" />
 				<label htmlFor="life_func_n" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>No</label><br /><br />
 
-				<label>Autism spectrum diagnosis?</label><br />
-				<input type="checkbox" id="autism_y" name="autism_y" value="Yes" />
-				<label htmlFor="autism_y" style={{margin:'0 2rem 0 0.3rem', fontSize: '1rem'}}>Yes</label>
-				<input type="checkbox" id="autism_n" name="autism_n" value="No" />
-				<label htmlFor="autism_n" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>No</label><br /><br />
+				<label>Race (may choose multiple)</label><br />
+				<input type="checkbox" id="race_white" name="race_white" value="white" />
+				<label htmlFor="race_white" style={{margin:'0 2rem 0 0.3rem', fontSize: '1rem'}}>White</label><br /><br />
+				<input type="checkbox" id="race_black" name="race_black" value="black" />
+				<label htmlFor="race_black" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>Black or African American</label><br /><br />
+				<input type="checkbox" id="race_aian" name="race_aian" value="aian" />
+				<label htmlFor="race_aian" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>American Indian or Alaskan Native</label><br /><br />
+				<input type="checkbox" id="race_asian" name="race_asian" value="asian" />
+				<label htmlFor="race_asian" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>Asian American</label><br /><br />
+				<input type="checkbox" id="race_pi" name="race_pi" value="pi" />
+				<label htmlFor="race_pi" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>Native Hawaiian or other Pacific Islander</label><br /><br />
+				<input type="checkbox" id="race_other" name="race_other" value="other" />
+				<label htmlFor="race_other" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>Other</label><br /><br />
+
 
 				<label>Autism spectrum diagnosis?</label><br />
 				<input type="checkbox" id="autism_y" name="autism_y" value="Yes" />
