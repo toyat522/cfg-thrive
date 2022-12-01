@@ -30,27 +30,27 @@ const Questions = () => {
 				<label htmlFor="name">Name</label><br />
 				<input type="text" id="name" name="name" /><br />
 
-				<label htmlFor="birthdate">Birthdate</label><br />
-				<input type="text" id="birthdate" name="birthdate" /><br />
+				<label htmlFor="birthdate">Date of birth (mm/dd/yyyy)</label><br />
+				<input type="text" id="birth" name="birth" /><br />
 
-				<label htmlFor="phoneno">Phone Number</label><br />
+				<label htmlFor="phoneno">Phone number</label><br />
 				<input type="text" id="phoneno" name="phoneno" /><br />
 
-				<label htmlFor="address">Address</label><br />
+				<label htmlFor="address">Home address</label><br />
 				<input type="text" id="address" name="address" /><br />
 
 				<label>Gender</label><br />
-				<input type="checkbox" id="gender" name="gender_m" value="M" />
+				<input type="radio" id="gender" name="gender" value="M" />
 				<label htmlFor="gender_m" style={{margin:'0 2rem 0 0.3rem', fontSize: '1rem'}}>Male</label>
-				<input type="checkbox" id="gender_f" name="gender_f" value="F" />
-				<label htmlFor="gender_f" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>Female</label>
-				<input type="checkbox" id="gender_o" name="gender_o" value="O" />
-				<label htmlFor="gender_o" style={{marginLeft: '0.7rem', fontSize: '1rem'}}>Other</label><br /><br />
+				<input type="radio" id="gender_f" name="gender" value="F" />
+				<label htmlFor="gender_f" style={{margin: '0 2rem 0 0.3rem', fontSize: '1rem'}}>Female</label>
+				<input type="radio" id="gender_o" name="gender" value="O" />
+				<label htmlFor="gender_o" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>Other</label><br /><br />
 
 				<label>Autism spectrum diagnosis?</label><br />
-				<input type="checkbox" id="autism_y" name="autism_y" value="Yes" />
+				<input type="radio" id="autism_y" name="autism" value="Yes" />
 				<label htmlFor="autism_y" style={{margin:'0 2rem 0 0.3rem', fontSize: '1rem'}}>Yes</label>
-				<input type="checkbox" id="autism_n" name="autism_n" value="No" />
+				<input type="radio" id="autism_n" name="autism" value="No" />
 				<label htmlFor="autism_n" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>No</label><br /><br />
 
 				<label>Does individual have co-occuring medical condition impairing one or more life function?</label><br />
@@ -60,25 +60,32 @@ const Questions = () => {
 				<label htmlFor="life_func_n" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>No</label><br /><br />
 
 				<label>Race (may choose multiple)</label><br />
-				<input type="checkbox" id="race_white" name="race_white" value="white" />
+				<input type="checkbox" id="race_white" name="race" value="white" />
 				<label htmlFor="race_white" style={{margin:'0 2rem 0 0.3rem', fontSize: '1rem'}}>White</label><br /><br />
-				<input type="checkbox" id="race_black" name="race_black" value="black" />
+				<input type="checkbox" id="race_black" name="race" value="black" />
 				<label htmlFor="race_black" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>Black or African American</label><br /><br />
-				<input type="checkbox" id="race_aian" name="race_aian" value="aian" />
+				<input type="checkbox" id="race_aian" name="race" value="aian" />
 				<label htmlFor="race_aian" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>American Indian or Alaskan Native</label><br /><br />
-				<input type="checkbox" id="race_asian" name="race_asian" value="asian" />
+				<input type="checkbox" id="race_asian" name="race" value="asian" />
 				<label htmlFor="race_asian" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>Asian American</label><br /><br />
-				<input type="checkbox" id="race_pi" name="race_pi" value="pi" />
+				<input type="checkbox" id="race_pi" name="race" value="pi" />
 				<label htmlFor="race_pi" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>Native Hawaiian or other Pacific Islander</label><br /><br />
-				<input type="checkbox" id="race_other" name="race_other" value="other" />
+				<input type="checkbox" id="race_other" name="race" value="other" />
 				<label htmlFor="race_other" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>Other</label><br /><br />
 
-
-				<label>Autism spectrum diagnosis?</label><br />
-				<input type="checkbox" id="autism_y" name="autism_y" value="Yes" />
-				<label htmlFor="autism_y" style={{margin:'0 2rem 0 0.3rem', fontSize: '1rem'}}>Yes</label>
-				<input type="checkbox" id="autism_n" name="autism_n" value="No" />
-				<label htmlFor="autism_n" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>No</label><br /><br />
+				<label>Service(s) received</label><br />
+				<input type="checkbox" id="nav" name="service" value="nav" />
+				<label htmlFor="nav" style={{margin:'0 2rem 0 0.3rem', fontSize: '1rem'}}>Navigation</label><br /><br />
+				<input type="checkbox" id="intense_nav" name="service" value="intense_nav" />
+				<label htmlFor="intense_nav" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>Intensive service navigation</label><br /><br />
+				<input type="checkbox" id="flex_fund" name="service" value="flex_fund" />
+				<label htmlFor="flex_fund" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>Flexible funding</label><br /><br />
+				<input type="checkbox" id="group_act" name="service" value="group_act" />
+				<label htmlFor="group_act" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>Participation in small group/support activities</label><br /><br />
+				<input type="checkbox" id="indiv_consult" name="service" value="indiv_consult" />
+				<label htmlFor="indiv_consult" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>Individual consoltation</label><br /><br />
+				<input type="checkbox" id="group_consult" name="service" value="group_consult" />
+				<label htmlFor="group_consult" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>Small group consultation</label><br /><br />
 
 				<label>Service goals</label><br /><br /> 
 				{goals}
@@ -90,11 +97,14 @@ const Questions = () => {
 					Add new goal
 				</button><br />
 
-				<label htmlFor="name">Date of file creation</label><br />
-				<input type="text" id="name" name="name" /><br />
+				<label htmlFor="date_term">Date services terminated</label><br />
+				<input type="text" id="date_term" name="date_term" /><br />
 
-				<label htmlFor="name">Date of file creation</label><br />
-				<input type="text" id="name" name="name" /><br />
+				<label>Individual/Family not responsive to contact?</label><br />
+				<input type="radio" id="responsive_y" name="responsive" value="Yes" />
+				<label htmlFor="responsive_y" style={{margin:'0 2rem 0 0.3rem', fontSize: '1rem'}}>Yes</label>
+				<input type="radio" id="responsive_n" name="responsive" value="No" />
+				<label htmlFor="responsive_n" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>No</label><br /><br />
 
 				<input className="accent-button" type="submit" value="Submit" />
 
