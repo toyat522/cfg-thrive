@@ -1,10 +1,15 @@
 import { React, useState }from 'react'
 import { useNavigate } from 'react-router-dom'
+import Login from './Login'
 
 const Home = () => {
 
 	const navigate = useNavigate()
 	const [token, setToken] = useState();
+
+	//if (!token) {
+		//return <Login setToken={setToken} />
+	//}
 
 	return (
 		<>
