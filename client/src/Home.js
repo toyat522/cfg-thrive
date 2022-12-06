@@ -1,9 +1,10 @@
-import React from 'react'
+import { React, useState }from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
 
 	const navigate = useNavigate()
+	const [token, setToken] = useState();
 
 	return (
 		<>

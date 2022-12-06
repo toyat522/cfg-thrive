@@ -24,7 +24,7 @@ const Questions = () => {
 
 			<form style={{margin: '1.5rem'}}>
 
-				<label htmlFor="date">Date of file creation</label><br />
+				<label htmlFor="date">Date of file creation (mm/dd/yyyy)</label><br />
 				<input type="text" id="date" name="date" /><br />
 
 				<label htmlFor="name">Name</label><br />
