@@ -1,15 +1,9 @@
-import { React, useState }from 'react'
+import { React }from 'react'
 import { useNavigate } from 'react-router-dom'
-import Login from './Login'
 
 const Home = () => {
 
 	const navigate = useNavigate()
-	const [token, setToken] = useState();
-
-	//if (!token) {
-		//return <Login setToken={setToken} />
-	//}
 
 	return (
 		<>
@@ -17,7 +11,7 @@ const Home = () => {
 				<img src={(require('./img/TandSLogo.jpg'))} width='400' alt="Thrive and Support Logo" />
 			</div>
 			<button 
-				onClick={()=>{alert("not implemented :(")}}
+				onClick={()=>navigate('/login')}
 				style={{position: 'absolute', top: '1rem', right: '0.5rem'}}>
 				Login
 			</button>
