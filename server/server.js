@@ -22,16 +22,19 @@ app.use(basicAuth({
 
 const auth = basicAuth({
   	users: {
-    	admin: '123',
-    	user: '456',
-  	},
-});
+    	authorized: '123',
+    	standard: '456',
+		view: '789'
+  	}
+})
 
 app.get('/login', auth, (req, res) => {
-	if (req.auth.user === 'admin') {
-		res.send('admin');
-	} else if (req.auth.user === 'user') {
-		res.send('user');
+	if (req.auth.user === 'authorized') {
+		res.send('authorized');
+	} else if (req.auth.user === 'standard') {
+		res.send('standard');
+	} else if (req.auth.user === 'view') {
+		res.send('view')
 	}
 });
 
