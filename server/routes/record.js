@@ -23,21 +23,7 @@ recordRoutes.route("/record").get(function (req, res) {
 // This section will help you create a new record.
 recordRoutes.route("/record/add").post(function (req, response) {
   	let db_connect = dbo.getDb();
-  	let myobj = {
-		date: req.body.date,
-		name: req.body.name,
-		birth: req.body.birth,
-		address: req.body.address,
-		phoneno: req.body.phoneno,
-		gender: req.body.gender,
-		autism: req.body.autism,
-		life_func: req.body.life_func,
-		race: req.body.race,
-		service: req.body.service,
-		goals: req.body.goals,
-		responsive: req.body.responsive,
-  	};
-  	db_connect.collection("records").insertOne(req.body, function (err, res) {
+    db_connect.collection("records").insertOne(req.body, function (err, res) {
     	if (err) throw err;
 		response.json(res)
   	});

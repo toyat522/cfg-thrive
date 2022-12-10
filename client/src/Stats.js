@@ -28,11 +28,4 @@ const Stats = () => {
 	)
 }
 
-const ClinetInfo = props => {
-	return (
-		<>	
-		</>
-	)
-}
-
 export default Stats;

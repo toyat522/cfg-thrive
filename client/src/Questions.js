@@ -13,9 +13,9 @@ const Questions = () => {
 		try {
 
 			const res = await axios.get('/login', { auth: JSON.parse(sessionStorage.getItem('token')) })
-			if (location.state.newClient && res.data != 'authorized') {
+			if (location.state.newClient && res.data !== 'authorized') {
 				navigate('/login')
-			} else if (res.data == 'view') {
+			} else if (res.data === 'view') {
 				navigate('/login')
 			}
 
@@ -46,7 +46,7 @@ const Questions = () => {
 
 	// Update values for race
 	function updateRaces() {
-		let selected = new Array()
+		let selected = []
 		let chks = document.getElementsByName("race")
 		for (let i = 0; i < chks.length; i++) {
 			if (chks[i].checked) {
@@ -58,7 +58,7 @@ const Questions = () => {
 	
 	// Update values for race
 	function updateServices() {
-		let selected = new Array()
+		let selected = []
 		let chks = document.getElementsByName("service")
 		for (let i = 0; i < chks.length; i++) {
 			if (chks[i].checked) {

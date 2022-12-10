@@ -13,11 +13,11 @@ const Confirmation = () => {
 		try {
 
 			const res = await axios.get('/login', { auth: JSON.parse(sessionStorage.getItem('token')) })
-			if (location.state.fromEdit && !(res.data == 'authorized' || res.data == 'standard')) {
+			if (location.state.fromEdit && !(res.data === 'authorized' || res.data === 'standard')) {
 				navigate('/login')
-			} else if (!location.state.fromEdit && res.data != 'authorized') {
+			} else if (!location.state.fromEdit && res.data !== 'authorized') {
 				navigate('/login')
-			} else if (res.data == 'view') {
+			} else if (res.data === 'view') {
 				navigate('/login')
 			}
 
