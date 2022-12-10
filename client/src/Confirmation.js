@@ -1,11 +1,31 @@
 import React from 'react'
 import { useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import axios from 'axios';
 
 const Confirmation = () => {
 
 	const navigate = useNavigate()
 	const location = useLocation()
+
+	// Check if client has login credentials to access page
+	const auth = async () => {
+		try {
+
+			const res = await axios.get('/login', { auth: JSON.parse(sessionStorage.getItem('token')) })
+			if (location.state.fromEdit && !(res.data == 'authorized' || res.data == 'standard')) {
+				navigate('/login')
+			} else if (!location.state.fromEdit && res.data != 'authorized') {
+				navigate('/login')
+			} else if (res.data == 'view') {
+				navigate('/login')
+			}
+
+		} catch (e) {
+			navigate('/login')
+		}
+	}
+	auth()
 
 	const [isInfoShown, setIsInfoShown] = useState(false)
 
@@ -67,7 +87,7 @@ const ClientInfo = props => {
 
 			return (
 				<>
-					<button onClick={()=>{navigate('/questions')}}>Edit Client</button>
+					<button onClick={()=>{navigate('/questions', {state: {newClient: false}})}}>Edit Client</button>
 				</>
 			)
 
