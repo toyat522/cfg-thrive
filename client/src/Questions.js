@@ -25,27 +25,6 @@ const Questions = () => {
 		responsive: "",
 	})
 
-	const GoalElement = props => {
-		return (
-			<>	
-				<label htmlFor={`goal${props.number}`} style={{fontSize:'1.2rem'}}>{`Goal ${props.number}`}</label><br />
-				<textarea
-					id={`goal${props.number}`} 
-					name={`goal${props.number}`} 
-				/>
-
-				<label style={{fontSize: '1rem', margin: '0 2rem 0 0rem'}}>Goal met?</label>
-				<input type="radio" id={`goal_met_y${props.number}`} name={`goal_met${props.number}`} value="Yes" />
-				<label htmlFor="goal_met_y" style={{margin:'0 2rem 0 0.3rem', fontSize: '1rem'}}>Yes</label>
-				<input type="radio" id={`goal_met_n${props.number}`} name={`goal_met${props.number}`} value="No" />
-				<label htmlFor={`goal_met_n${props.number}`} style={{margin:'0 2rem 0 0.3rem', fontSize: '1rem'}}>No</label><br /><br />
-			
-				<label htmlFor={`goal_met_date${props.number}`} style={{margin:'0 2rem 0 0.3rem', fontSize: '1rem'}}>Date met (leave blank if not applicable)</label>
-				<input type="text" id={`goal_met_date${props.number}`} name="" /><br /><br />
-			</>
-		)
-	}
-
 	// Update values for race
 	function updateRaces() {
 		let selected = new Array()
@@ -405,5 +384,27 @@ const Questions = () => {
 	)
 	
 }
+
+const GoalElement = props => {
+	return (
+		<>	
+			<label htmlFor={`goal${props.number}`} style={{fontSize:'1.2rem'}}>{`Goal ${props.number}`}</label><br />
+			<textarea
+				id={`goal${props.number}`} 
+				name={`goal${props.number}`} 
+			/>
+
+			<label style={{fontSize: '1rem', margin: '0 2rem 0 0rem'}}>Goal met?</label>
+			<input type="radio" id={`goal_met_y${props.number}`} name={`goal_met${props.number}`} value="Yes" />
+			<label htmlFor="goal_met_y" style={{margin:'0 2rem 0 0.3rem', fontSize: '1rem'}}>Yes</label>
+			<input type="radio" id={`goal_met_n${props.number}`} name={`goal_met${props.number}`} value="No" />
+			<label htmlFor={`goal_met_n${props.number}`} style={{margin:'0 2rem 0 0.3rem', fontSize: '1rem'}}>No</label><br /><br />
+		
+			<label htmlFor={`goal_met_date${props.number}`} style={{margin:'0 2rem 0 0.3rem', fontSize: '1rem'}}>Date met (leave blank if not applicable)</label>
+			<input type="text" id={`goal_met_date${props.number}`} name="" /><br /><br />
+		</>
+	)
+}
+
 
 export default Questions;
