@@ -42,6 +42,7 @@ const Questions = () => {
 		service: [],
 		date_term: "",
 		responsive: "",
+		active: true
 	})
 
 	// Update values for race
@@ -79,7 +80,7 @@ const Questions = () => {
 			form["goal_met_date" + (i + 1)] = goal_date.value
 		}
 	}
-	
+
 	// Add the list of goals
 	for (let i = 0; i < numGoals; i += 1) {
 		goals.push(<GoalElement key={i + 1} number={i + 1} />)
@@ -96,7 +97,6 @@ const Questions = () => {
 	async function onSubmit(e) {
 		e.preventDefault();
 		updateGoals()
-		console.log(form)
 	 
 		// When a post request is sent to the create url, we'll add a new record to the database.
 		const data = { ...form };
@@ -246,8 +246,8 @@ const Questions = () => {
 					type="checkbox" 
 					id="race_white" 
 					name="race" 
-					value="white" 
-					checked={form.race.includes("white")}
+					value="White" 
+					checked={form.race.includes("White")}
 					onChange={() => updateRaces()}
 				/>
 				<label htmlFor="race_white" style={{margin:'0 2rem 0 0.3rem', fontSize: '1rem'}}>White</label><br /><br />
@@ -255,8 +255,8 @@ const Questions = () => {
 					type="checkbox" 
 					id="race_black" 
 					name="race" 
-					value="black" 
-					checked={form.race.includes("black")}
+					value="Black" 
+					checked={form.race.includes("Black")}
 					onChange={() => updateRaces()}
 				/>
 				<label htmlFor="race_black" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>Black or African American</label><br /><br />
@@ -264,8 +264,8 @@ const Questions = () => {
 					type="checkbox" 
 					id="race_aian" 
 					name="race" 
-					value="aian" 
-					checked={form.race.includes("aian")}	
+					value="AIAN" 
+					checked={form.race.includes("AIAN")}	
 					onChange={() => updateRaces()}
 				/>
 				<label htmlFor="race_aian" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>American Indian or Alaskan Native</label><br /><br />
@@ -273,8 +273,8 @@ const Questions = () => {
 					type="checkbox" 
 					id="race_asian" 
 					name="race" 
-					value="asian" 
-					checked={form.race.includes("asian")}
+					value="Asian" 
+					checked={form.race.includes("Asian")}
 					onChange={() => updateRaces()}
 				/>
 				<label htmlFor="race_asian" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>Asian American</label><br /><br />
@@ -282,8 +282,8 @@ const Questions = () => {
 					type="checkbox" 
 					id="race_pi" 
 					name="race" 
-					value="pi" 
-					checked={form.race.includes("pi")}	
+					value="Pacific Islander" 
+					checked={form.race.includes("Pacific Islander")}	
 					onChange={() => updateRaces()}
 				/>
 				<label htmlFor="race_pi" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>Native Hawaiian or other Pacific Islander</label><br /><br />
@@ -291,8 +291,8 @@ const Questions = () => {
 					type="checkbox" 
 					id="race_other" 
 					name="race" 
-					value="other" 
-					checked={form.race.includes("other")}
+					value="Other" 
+					checked={form.race.includes("Other")}
 					onChange={() => updateRaces()}
 				/>
 				<label htmlFor="race_other" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>Other</label><br /><br />

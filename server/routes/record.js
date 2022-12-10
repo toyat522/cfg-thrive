@@ -8,6 +8,9 @@ const recordRoutes = express.Router();
 //This will help us connect to the database
 const dbo = require("../db/conn");
 
+// Help convert id from string to ObjectId for _id
+const ObjectId = require("mongodb").ObjectId
+
 // This section will help you get a list of all the records.
 recordRoutes.route("/record").get(function (req, res) {
   	let db_connect = dbo.getDb();
@@ -20,6 +23,18 @@ recordRoutes.route("/record").get(function (req, res) {
     	});
 });
 
+// This section will help you get a single record by id
+recordRoutes.route("/record/:id").get(function (req, res) {
+ 	let db_connect = dbo.getDb();
+ 	let myquery = { _id: ObjectId(req.params.id) };
+ 	db_connect
+   		.collection("records")
+   		.findOne(myquery, function (err, result) {
+    if (err) throw err;
+    	res.json(result);
+   	});
+});
+
 // This section will help you create a new record.
 recordRoutes.route("/record/add").post(function (req, response) {
   	let db_connect = dbo.getDb();
@@ -30,28 +45,23 @@ recordRoutes.route("/record/add").post(function (req, response) {
 });
 
 // This section will help you update a record by id.
-recordRoutes.route("/update/:id").post(function (req, res) {
+recordRoutes.route("/update/:id").post(function (req, response) {
   	let db_connect = dbo.getDb();
-  	let myquery = { id: req.body.id };
-  	let newvalues = {
-		$set: {
-			person_name: req.body.person_name,
-			person_position: req.body.person_position,
-			person_level: req.body.person_level,
-		},
-  	};
+  	let myquery = { _id: ObjectId(req.params.id) };
+	const updated = req.body
+	delete updated._id
 	db_connect
 		.collection("records")
-		.updateOne(myquery, newvalues, function (err, res) {
+		.updateOne(myquery, {$set: updated}, function (err, res) {
 			if (err) throw err;
-		  	console.log("1 document updated");
+			response.json(res)
 		});
 });
 
 // This section will help you delete a record
 recordRoutes.route("/:id").delete((req, res) => {
 	let db_connect = dbo.getDb();
-	var myquery = { id: req.body.id };
+	var myquery = { id: req.body._id };
 	db_connect.collection("records").deleteOne(myquery, function (err, obj) {
     	if (err) throw err;
     	console.log("1 document deleted");

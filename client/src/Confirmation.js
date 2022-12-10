@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
@@ -7,6 +7,27 @@ const Confirmation = () => {
 
 	const navigate = useNavigate()
 	const location = useLocation()
+
+	// Fetch data	
+ 	const [records, setRecords] = useState([]);
+ 	useEffect(() => {
+   		async function getRecords() {
+     		const response = await fetch(`http://localhost:5000/record/`);
+ 
+			if (!response.ok) {
+				const message = `An error occurred: ${response.statusText}`;
+				window.alert(message);
+				return;
+			}
+	 
+			const records = await response.json();
+			setRecords(records);
+		}
+ 
+   		getRecords();
+ 
+   		return;
+ 	}, [records.length]);	 
 
 	// Check if client has login credentials to access page
 	const auth = async () => {
@@ -28,12 +49,41 @@ const Confirmation = () => {
 	auth()
 
 	const [isInfoShown, setIsInfoShown] = useState(false)
+	const [data, setData] = useState({ 
+		name: "", 
+		birth: "",
+		phoneno: "",
+		address: "",
+		gender: "",
+		race: "",
+		active: true
+	})
 
 	function getClientInfo() {
-		setIsInfoShown(true)
+
+		const nameText = document.getElementById("name")
+		const dobText = document.getElementById("dob")
+		let isFound = false
+		for (let i = 0; i < records.length; i++) {
+
+			if (records[i].name == nameText.value && records[i].birth == dobText.value) {
+
+				isFound = true
+				setData(records[i])
+				setIsInfoShown(true)
+				break
+
+			}
+
+		}
+
+		if (!isFound) {
+			alert("Could not find specified client")
+		}
+
 	}
 
-	const clientInfo = <ClientInfo fromEdit={location.state.fromEdit} isInfo={isInfoShown} status="activated" name="John Doe" dob="03/19/2004" phone="9075381519" address="500 Memorial Drive, Cambridge, MA, 02139" gender="male" race="Asian" />
+	const clientInfo = <ClientInfo fromEdit={location.state.fromEdit} isInfo={isInfoShown} data={data} />
 
 	return (
 		<>
@@ -69,15 +119,37 @@ const ClientInfo = props => {
 
 	const AskConfirm = () => {
 
-		function activate() {
+		async function activate() {
 
+			const person = props.data
+			person.active = true
+
+			await fetch(`http://localhost:5000/update/${person._id}`, {
+			 	method: "POST",
+			 	body: JSON.stringify(person),
+			 	headers: {
+			   		'Content-Type': 'application/json'
+			 	},
+		   	});
+				
 			alert("Client was successfully activated")
 			navigate('/')
 
 		}
 
-		function inactivate() {
+		async function inactivate() {
 
+			const person = props.data
+			person.active = false
+
+			await fetch(`http://localhost:5000/update/${props.data._id}`, {
+			 	method: "POST",
+			 	body: JSON.stringify({active: false}),
+			 	headers: {
+			   		'Content-Type': 'application/json'
+			 	},
+		   	});
+	
 			alert("Client was successfully inactivated")
 			navigate('/')
 
@@ -108,13 +180,13 @@ const ClientInfo = props => {
 		return (
 			<>	
 				<h4>Client Information:</h4>
-				<p>{`Status: ${props.status}`}</p>
-				<p>{`Name: ${props.name}`}</p>
-				<p>{`Date of birth: ${props.dob}`}</p>
-				<p>{`Gender: ${props.gender}`}</p>
-				<p>{`Race: ${props.race}`}</p>
-				<p>{`Primary phone: ${props.phone}`}</p>
-				<p>{`Home address: ${props.address}`}</p>
+				<p>{`Activated?: ${props.data.active}`}</p>
+				<p>{`Name: ${props.data.name}`}</p>
+				<p>{`Date of birth: ${props.data.birth}`}</p>
+				<p>{`Gender: ${props.data.gender}`}</p>
+				<p>{`Race: ${props.data.race}`}</p>
+				<p>{`Primary phone: ${props.data.phoneno}`}</p>
+				<p>{`Home address: ${props.data.address}`}</p>
 				<AskConfirm />
 			</>
 		)
