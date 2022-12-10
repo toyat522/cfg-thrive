@@ -1,10 +1,29 @@
 import React from 'react'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
+import axios from 'axios';
 
 const Questions = () => {
 
 	const navigate = useNavigate()
+	const location = useLocation()
+
+	// Check if client has login credentials to access page
+	const auth = async () => {
+		try {
+
+			const res = await axios.get('/login', { auth: JSON.parse(sessionStorage.getItem('token')) })
+			if (location.state.newClient && res.data != 'authorized') {
+				navigate('/login')
+			} else if (res.data == 'view') {
+				navigate('/login')
+			}
+
+		} catch (e) {
+			navigate('/login')
+		}
+	}
+	auth()
 
 	const [numGoals, setNumGoals] = useState(0)
 	const goals = [];
