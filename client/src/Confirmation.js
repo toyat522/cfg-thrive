@@ -66,7 +66,7 @@ const Confirmation = () => {
 		let isFound = false
 		for (let i = 0; i < records.length; i++) {
 
-			if (records[i].name == nameText.value && records[i].birth == dobText.value) {
+			if (records[i].name === nameText.value && records[i].birth === dobText.value) {
 
 				isFound = true
 				setData(records[i])
@@ -117,16 +117,14 @@ const ClientInfo = props => {
 
 	const navigate = useNavigate()
 
+
 	const AskConfirm = () => {
 
 		async function activate() {
 
-			const person = props.data
-			person.active = true
-
-			await fetch(`http://localhost:5000/update/${person._id}`, {
+			await fetch(`http://localhost:5000/update/${props.data._id}`, {
 			 	method: "POST",
-			 	body: JSON.stringify(person),
+			 	body: JSON.stringify({active: true}),
 			 	headers: {
 			   		'Content-Type': 'application/json'
 			 	},
@@ -138,9 +136,6 @@ const ClientInfo = props => {
 		}
 
 		async function inactivate() {
-
-			const person = props.data
-			person.active = false
 
 			await fetch(`http://localhost:5000/update/${props.data._id}`, {
 			 	method: "POST",
@@ -159,7 +154,7 @@ const ClientInfo = props => {
 
 			return (
 				<>
-					<button onClick={()=>{navigate('/questions', {state: {newClient: false}})}}>Edit Client</button>
+					<button onClick={()=>{navigate('/questions', {state: {newClient: false, id: props.data._id}})}}>Edit Client</button>
 				</>
 			)
 

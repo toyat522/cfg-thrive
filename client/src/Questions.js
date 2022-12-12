@@ -1,5 +1,5 @@
 import React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
@@ -7,6 +7,61 @@ const Questions = () => {
 
 	const navigate = useNavigate()
 	const location = useLocation()
+
+	// Fetch data	
+ 	const [records, setRecords] = useState([]);
+ 	useEffect(() => {
+   		async function getRecords() {
+     		const response = await fetch(`http://localhost:5000/record/`);
+ 
+			if (!response.ok) {
+				const message = `An error occurred: ${response.statusText}`;
+				window.alert(message);
+				return;
+			}
+	 
+			const records = await response.json();
+			setRecords(records);
+		}
+   		getRecords();
+
+		// If editing client, update data
+		if (!location.state.newClient) {
+			for (let i = 0; i < records.length; i++) {
+				if (records[i]._id === location.state.id) {
+					const curr = records[i]
+
+					// Update form except goals
+					updateForm({
+						date: curr.date,
+						name: curr.name,
+						birth: curr.birth,
+						address: curr.address,
+						phoneno: curr.phoneno,
+						gender: curr.gender,
+						autism: curr.autism,
+						life_func: curr.life_func,
+						race: curr.race,
+						service: curr.service,
+						date_term: curr.date_term,
+						responsive: curr.responsive,
+						num_goals: curr.num_goals,
+						active: curr.active
+					})
+
+					// Update goals
+					setNumGoals(parseInt(curr.num_goals))
+					for (let i = 0; i < parseInt(curr.num_goals); i++) {
+						form["goal" + (i + 1)] = curr["goal" + (i + 1)]
+						form["goal_met_y" + (i + 1)] = curr["goal_met_y" + (i + 1)]
+						form["goal_met_date" + (i + 1)] = curr["goal_met_date" + (i + 1)]
+					}
+				}
+			}
+		}
+
+   		return;
+ 	}, [records.length]);	 
 
 	// Check if client has login credentials to access page
 	const auth = async () => {
@@ -42,6 +97,7 @@ const Questions = () => {
 		service: [],
 		date_term: "",
 		responsive: "",
+		num_goals: 0,
 		active: true
 	})
 
@@ -100,6 +156,7 @@ const Questions = () => {
 	 
 		// When a post request is sent to the create url, we'll add a new record to the database.
 		const data = { ...form };
+		console.log(data)
 	 
 		await fetch("http://localhost:5000/record/add", {
 			method: "POST",
@@ -115,7 +172,7 @@ const Questions = () => {
 	 
 	   	navigate("/");
 	}
-
+	
 	return (
 		<>
 			<button
@@ -362,6 +419,7 @@ const Questions = () => {
 						form["goal" + (numGoals + 1)] = ""
 						form["goal_met_y" + (numGoals + 1)] = false
 						form["goal_met_date" + (numGoals + 1)] = ""
+						updateForm({num_goals: numGoals + 1})
 						setNumGoals(numGoals + 1)
 					}}>
 					Add new goal
@@ -408,10 +466,7 @@ const GoalElement = props => {
 	return (
 		<>	
 			<label htmlFor={`goal${props.number}`} style={{fontSize:'1.2rem'}}>{`Goal ${props.number}`}</label><br />
-			<textarea
-				id={`goal${props.number}`} 
-				name={`goal${props.number}`} 
-			/>
+			<textarea id={`goal${props.number}`} name={`goal${props.number}`} />
 
 			<label style={{fontSize: '1rem', margin: '0 2rem 0 0rem'}}>Goal met?</label>
 			<input type="radio" id={`goal_met_y${props.number}`} name={`goal_met${props.number}`} value="Yes" />
