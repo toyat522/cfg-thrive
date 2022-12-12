@@ -156,19 +156,32 @@ const Questions = () => {
 	 
 		// When a post request is sent to the create url, we'll add a new record to the database.
 		const data = { ...form };
-		console.log(data)
-	 
-		await fetch("http://localhost:5000/record/add", {
-			method: "POST",
-			headers: {
-		   		"Content-Type": "application/json",
-		 	},
-			body: JSON.stringify(data),
-	   	})
-	   	.catch(error => {
-		 	window.alert(error);
-		 	return;
-	   	});
+
+		if (location.state.newClient) {
+
+			await fetch("http://localhost:5000/record/add", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(data),
+			})
+			.catch(error => {
+				window.alert(error);
+				return;
+			})
+
+		} else {
+
+			await fetch(`http://localhost:5000/update/${location.state.id}`, {
+				method: "POST",
+				body: JSON.stringify(data),
+				headers: {
+					'Content-Type': 'application/json'
+				},
+			})
+
+		}
 	 
 	   	navigate("/");
 	}
@@ -176,7 +189,6 @@ const Questions = () => {
 	// Once goals are rendered, add their descriptions (only once)
 	const [descAdded, setDescAdded] = useState(false)
 	const goalsDiv = document.getElementById("goals")
-	console.log(descAdded)
 	if (!descAdded && goalsDiv != null && goalsDiv.children.length != 0 && !location.state.newClient) {
 		setDescAdded(true)
 
