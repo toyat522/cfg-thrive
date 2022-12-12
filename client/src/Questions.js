@@ -172,7 +172,24 @@ const Questions = () => {
 	 
 	   	navigate("/");
 	}
-	
+
+	// Once goals are rendered, add their descriptions (only once)
+	const [descAdded, setDescAdded] = useState(false)
+	const goalsDiv = document.getElementById("goals")
+	console.log(descAdded)
+	if (!descAdded && goalsDiv != null && goalsDiv.children.length != 0 && !location.state.newClient) {
+		setDescAdded(true)
+
+		for (let i = 0; i < numGoals; i++) {
+
+			document.getElementById("goal" + (i + 1)).value = form["goal" + (i + 1)]
+			document.getElementById("goal_met_y" + (i + 1)).checked = form["goal_met_y" + (i + 1)]
+			document.getElementById("goal_met_n" + (i + 1)).checked = !form["goal_met_y" + (i + 1)]
+			document.getElementById("goal_met_date" + (i + 1)).value = form["goal_met_date" + (i + 1)]
+
+		}
+	}
+
 	return (
 		<>
 			<button
@@ -411,7 +428,9 @@ const Questions = () => {
 				<label htmlFor="group_consult" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>Small group consultation</label><br /><br />
 
 				<label>Service goals</label><br /><br /> 
-				{goals}
+				<div id="goals">
+					{goals}
+				</div>
 				<button
 					type="button"
 					style={{margin: '0.5rem 0.5rem 2rem'}}
