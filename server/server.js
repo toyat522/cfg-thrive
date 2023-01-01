@@ -13,7 +13,6 @@ app.use(require("./routes/record"));
 // get driver connection
 const dbo = require("./db/conn");
 
-
 // Basic authentication
 const basicAuth = require('express-basic-auth')
 const auth = basicAuth({
@@ -44,6 +43,6 @@ app
   		console.log(`Server is running on port: ${port}`);
 	})
 
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   	res.sendFile(path.join(__dirname, '../client/build/index.html'));
 })
