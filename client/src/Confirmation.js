@@ -12,7 +12,7 @@ const Confirmation = () => {
  	const [records, setRecords] = useState([]);
  	useEffect(() => {
    		async function getRecords() {
-     		const response = await fetch(`http://cfg-thrive.herokuapp.com/record/`);
+     		const response = await fetch(`http://localhost:5000/record/`);
  
 			if (!response.ok) {
 				const message = `An error occurred: ${response.statusText}`;
@@ -122,7 +122,7 @@ const ClientInfo = props => {
 
 		async function activate() {
 
-			await fetch(`http://cfg-thrive.herokuapp.com/update/${props.data._id}`, {
+			await fetch(`http://localhost:5000/update/${props.data._id}`, {
 			 	method: "POST",
 			 	body: JSON.stringify({active: true}),
 			 	headers: {
@@ -137,7 +137,7 @@ const ClientInfo = props => {
 
 		async function inactivate() {
 
-			await fetch(`http://cfg-thrive.herokuapp.com/update/${props.data._id}`, {
+			await fetch(`http://localhost:5000/update/${props.data._id}`, {
 			 	method: "POST",
 			 	body: JSON.stringify({active: false}),
 			 	headers: {
