@@ -12,7 +12,7 @@ const Questions = () => {
  	const [records, setRecords] = useState([]);
  	useEffect(() => {
    		async function getRecords() {
-     		const response = await fetch(`http://cfg-thrive.herokuapp.com/record/`);
+     		const response = await fetch(`https://cfg-thrive.herokuapp.com/record/`);
  
 			if (!response.ok) {
 				const message = `An error occurred: ${response.statusText}`;
@@ -159,7 +159,7 @@ const Questions = () => {
 
 		if (location.state.newClient) {
 
-			await fetch("http://cfg-thrive.herokuapp.com/record/add", {
+			await fetch("https://cfg-thrive.herokuapp.com/record/add", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",
@@ -173,7 +173,7 @@ const Questions = () => {
 
 		} else {
 
-			await fetch(`http://cfg-thrive.herokuapp.com/update/${location.state.id}`, {
+			await fetch(`https://cfg-thrive.herokuapp.com/update/${location.state.id}`, {
 				method: "POST",
 				body: JSON.stringify(data),
 				headers: {
