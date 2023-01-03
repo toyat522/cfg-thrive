@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
+const env = process.env.NODE_ENV
+
 const Questions = () => {
 
 	const navigate = useNavigate()
@@ -12,8 +14,14 @@ const Questions = () => {
  	const [records, setRecords] = useState([]);
  	useEffect(() => {
    		async function getRecords() {
-     		const response = await fetch(`http://cfg-thrive.herokuapp.com/record/`);
- 
+
+     		let response;
+            if (env === 'production') {
+                response = await fetch(`http://cfg-thrive.herokuapp.com/record/`);
+            } else {
+                response = await fetch(`http://localhost:5000/record/`);
+            }
+
 			if (!response.ok) {
 				const message = `An error occurred: ${response.statusText}`;
 				window.alert(message);
@@ -159,27 +167,51 @@ const Questions = () => {
 
 		if (location.state.newClient) {
 
-			await fetch("http://cfg-thrive.herokuapp.com/record/add", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify(data),
-			})
-			.catch(error => {
-				window.alert(error);
-				return;
-			})
+            if (env === 'production') {
+                await fetch("http://cfg-thrive.herokuapp.com/record/add", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(data),
+				})
+				.catch(error => {
+					window.alert(error);
+					return;
+				})
+            } else {
+                await fetch("http://localhost:5000/record/add", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify(data),
+				})
+				.catch(error => {
+					window.alert(error);
+					return;
+				})
+            }
 
 		} else {
 
-			await fetch(`http://cfg-thrive.herokuapp.com/update/${location.state.id}`, {
-				method: "POST",
-				body: JSON.stringify(data),
-				headers: {
-					'Content-Type': 'application/json'
-				},
-			})
+            if (env === 'production') {
+				await fetch(`http://cfg-thrive.herokuapp.com/update/${location.state.id}`, {
+					method: "POST",
+					body: JSON.stringify(data),
+					headers: {
+						'Content-Type': 'application/json'
+					},
+				})
+            } else {
+				await fetch(`http://localhost:5000/update/${location.state.id}`, {
+					method: "POST",
+					body: JSON.stringify(data),
+					headers: {
+						'Content-Type': 'application/json'
+					},
+				})
+            }
 
 		}
 	 

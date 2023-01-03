@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
+const env = process.env.NODE_ENV
+
 const Confirmation = () => {
 
 	const navigate = useNavigate()
@@ -12,7 +14,12 @@ const Confirmation = () => {
  	const [records, setRecords] = useState([]);
  	useEffect(() => {
    		async function getRecords() {
-     		const response = await fetch(`http://cfg-thrive.herokuapp.com/record/`);
+     		let response;
+            if (env === 'production') {
+                response = await fetch(`http://cfg-thrive.herokuapp.com/record/`);
+            } else {
+                response = await fetch(`http://localhost:5000/record/`);
+            }
  
 			if (!response.ok) {
 				const message = `An error occurred: ${response.statusText}`;
