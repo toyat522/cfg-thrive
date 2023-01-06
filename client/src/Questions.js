@@ -488,7 +488,7 @@ const Questions = () => {
 					checked={form.service.includes("indiv_consult")}
 					onChange={() => updateServices()}
 				/>
-				<label htmlFor="indiv_consult" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>Individual consoltation</label><br /><br />
+				<label htmlFor="indiv_consult" style={{marginLeft: '0.3rem', fontSize: '1rem'}}>Individual consultation</label><br /><br />
 				<input 
 					type="checkbox" 
 					id="group_consult" 
