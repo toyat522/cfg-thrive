@@ -1,8 +1,10 @@
 import { React }from 'react'
 import { useNavigate } from 'react-router-dom'
 
+// Home page (path: /)
 const Home = () => {
 
+    // For navigating between webpages
 	const navigate = useNavigate()
 
 	return (

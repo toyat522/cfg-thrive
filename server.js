@@ -4,6 +4,7 @@ const cors = require("cors");
 const path = require("path")
 require("dotenv").config({ path: "./config.env" });
 
+// Port to deploy website
 const port = process.env.PORT || 8080;
 
 app.use(cors());
@@ -23,7 +24,10 @@ const auth = basicAuth({
   	}
 })
 
+// Called when user tries to log in
 app.get('/login', auth, (req, res) => {
+
+    // Sends the user role back to client (checks if user has enough power to access a webpage)
 	if (req.auth.user === 'authorized') {
 		res.send('authorized');
 	} else if (req.auth.user === 'standard') {
@@ -31,16 +35,19 @@ app.get('/login', auth, (req, res) => {
 	} else if (req.auth.user === 'view') {
 		res.send('view')
 	}
+
 });
 
 app
   	.use(express.static(path.join(__dirname, './client/build')))
   	.listen(port, () => {
-  		// perform a database connection when server starts
+
+  		// Perform a database connection when server starts
   		dbo.connectToServer(function (err) {
     		if (err) console.error(err);
   		});
   		console.log(`Server is running on port: ${port}`);
+
 	})
 
 app.get('*', (req, res) => {

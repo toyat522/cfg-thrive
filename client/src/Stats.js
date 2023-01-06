@@ -18,7 +18,7 @@ const LineChart = () => {
 		],
 	};
 	return (
-		<div style={{justifyContent: 'center', display: 'flex'}}>
+		<div style={{height: '500px', justifyContent: 'center', display: 'flex'}}>
 			<Line data={data} />
 		</div>
 	);
@@ -38,8 +38,8 @@ const BarChart = () => {
 		],
 	};
 	return (
-		<div>
-		<Bar data={data} />
+		<div style={{height: '500px', justifyContent: 'center', display: 'flex'}}>
+			<Bar data={data} />
 		</div>
 	);
 };
@@ -58,8 +58,8 @@ const PieChart = () => {
 	],
 	};
 	return (
-		<div>
-		<Pie data={data} />
+		<div style={{height: '400px', justifyContent: 'center', display: 'flex'}}>
+		  	<Pie data={data} />
 		</div>
 	);
 };
@@ -87,8 +87,11 @@ const Stats = () => {
 				Back to home
 			</button>
           	<LineChart />
+          	<br />
           	<BarChart />
+          	<br />
           	<PieChart />
+          	<br />
 		</>
 	)
 }

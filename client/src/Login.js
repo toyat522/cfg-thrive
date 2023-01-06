@@ -2,11 +2,14 @@ import { React, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
+// Login page to authenticate user
 const Login = () => {
 
+    // States to set entered username and password
 	const [username, setUserName] = useState()
 	const [password, setPassword] = useState()
 
+    // For navigating between webpages
 	const navigate = useNavigate()
 
 	// Check if client has login credentials to access page
@@ -14,15 +17,21 @@ const Login = () => {
 
 	  	try {
 
+            // Checks if username and password are correct
 			const res = await axios.get('/login', { auth: { username: username, password: password } })
 
+            // If it is correct, then create an 'authentication token' in the session storage
 			sessionStorage.setItem('token', JSON.stringify({username: username, password: password}))
 
+            // Redirect to home page
 			alert("Success! Redirecting to home page")
 			navigate('/')
 
 	  	} catch (e) {
+
+            // Error message to show when authentication failed
 			alert("Authentication failed")
+
 	  	}
 
 	};

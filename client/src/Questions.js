@@ -7,6 +7,7 @@ const env = process.env.NODE_ENV
 
 const Questions = () => {
 
+    // For navigating between webpages
 	const navigate = useNavigate()
 	const location = useLocation()
 
@@ -16,6 +17,8 @@ const Questions = () => {
    		async function getRecords() {
 
      		let response;
+
+			// If environment is production, get data from cfg-thrive webpage)
             if (env === 'production') {
                 response = await fetch(`http://cfg-thrive.herokuapp.com/record/`);
             } else {
@@ -30,6 +33,7 @@ const Questions = () => {
 	 
 			const records = await response.json();
 			setRecords(records);
+
 		}
    		getRecords();
 
@@ -57,7 +61,7 @@ const Questions = () => {
 						active: curr.active
 					})
 
-					// Update goals
+					// Iterate through goals and update the form object to send to MongoDB
 					setNumGoals(parseInt(curr.num_goals))
 					for (let i = 0; i < parseInt(curr.num_goals); i++) {
 						form["goal" + (i + 1)] = curr["goal" + (i + 1)]
@@ -88,7 +92,10 @@ const Questions = () => {
 	}
 	auth()
 
+    // State that contains the number of goals
 	const [numGoals, setNumGoals] = useState(0)
+
+    // Array that contains all the goals
 	const goals = [];
 
 	// Form object to send to DB
@@ -121,7 +128,7 @@ const Questions = () => {
 		updateForm({race: selected})
 	}
 	
-	// Update values for race
+	// Update values for service
 	function updateServices() {
 		let selected = []
 		let chks = document.getElementsByName("service")
@@ -159,6 +166,8 @@ const Questions = () => {
 
 	// Function to be called when the submit button is clicked
 	async function onSubmit(e) {
+
+        // TODO: alert (feedback) when data updated
 		e.preventDefault();
 		updateGoals()
 	 
@@ -167,7 +176,11 @@ const Questions = () => {
 
 		if (location.state.newClient) {
 
+            // If a new client is being made, add a new document to MongoDB
+
             if (env === 'production') {
+
+				// If environment is production, get data from cfg-thrive webpage)
                 await fetch("http://cfg-thrive.herokuapp.com/record/add", {
 					method: "POST",
 					headers: {
@@ -179,7 +192,10 @@ const Questions = () => {
 					window.alert(error);
 					return;
 				})
+
             } else {
+
+				// If environment is not in production, get data from localhost)
                 await fetch("http://localhost:5000/record/add", {
 					method: "POST",
 					headers: {
@@ -191,11 +207,16 @@ const Questions = () => {
 					window.alert(error);
 					return;
 				})
+
             }
 
 		} else {
 
+			// If a previously made client is being updated, update the corresponding document
+
             if (env === 'production') {
+
+				// If environment is production, get data from cfg-thrive webpage)
 				await fetch(`http://cfg-thrive.herokuapp.com/update/${location.state.id}`, {
 					method: "POST",
 					body: JSON.stringify(data),
@@ -203,7 +224,10 @@ const Questions = () => {
 						'Content-Type': 'application/json'
 					},
 				})
+
             } else {
+
+				// If environment is not in production, get data from localhost)
 				await fetch(`http://localhost:5000/update/${location.state.id}`, {
 					method: "POST",
 					body: JSON.stringify(data),
@@ -211,11 +235,14 @@ const Questions = () => {
 						'Content-Type': 'application/json'
 					},
 				})
+
             }
 
 		}
-	 
+
+        // Navigate to the home page after updating DB
 	   	navigate("/");
+
 	}
 
 	// Once goals are rendered, add their descriptions (only once)
@@ -234,6 +261,7 @@ const Questions = () => {
 		}
 	}
 
+    // JSX to be rendered
 	return (
 		<>
 			<button
@@ -525,6 +553,7 @@ const Questions = () => {
 	
 }
 
+// Each added goal
 const GoalElement = props => {
 	return (
 		<>	

@@ -5,6 +5,7 @@ import Stats from './Stats'
 import Login from './Login'
 import Confirmation from './Confirmation'
 
+// Create webpages according to their paths
 const App = () => {
 	return (
 		<BrowserRouter>

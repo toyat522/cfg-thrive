@@ -3,10 +3,13 @@ import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
+// Get process environment from heroku environmental variables
 const env = process.env.NODE_ENV
 
+// Confirmation page to edit/activate/inactivate client (path: /confirm)
 const Confirmation = () => {
 
+    // For navigating between webpages
 	const navigate = useNavigate()
 	const location = useLocation()
 
@@ -14,29 +17,34 @@ const Confirmation = () => {
  	const [records, setRecords] = useState([]);
  	useEffect(() => {
    		async function getRecords() {
+
      		let response;
+
+			// If environment is production, get data from cfg-thrive webpage)
             if (env === 'production') {
                 response = await fetch(`http://cfg-thrive.herokuapp.com/record/`);
             } else {
                 response = await fetch(`http://localhost:5000/record/`);
             }
- 
+
+            // Error message
 			if (!response.ok) {
 				const message = `An error occurred: ${response.statusText}`;
 				window.alert(message);
 				return;
 			}
-	 
+
+            // Set records to fetched data
 			const records = await response.json();
 			setRecords(records);
+
 		}
- 
    		getRecords();
  
    		return;
  	}, [records.length]);	 
 
-	// Check if client has login credentials to access page
+	// Check if client has login credentials in session storage to access page
 	const auth = async () => {
 		try {
 
@@ -55,7 +63,10 @@ const Confirmation = () => {
 	}
 	auth()
 
+    // State to determine whether client information is shown
 	const [isInfoShown, setIsInfoShown] = useState(false)
+
+    // State for shown client data
 	const [data, setData] = useState({ 
 		name: "", 
 		birth: "",
@@ -66,10 +77,13 @@ const Confirmation = () => {
 		active: true
 	})
 
+    // Get client information based on his/her name and date of birth
 	function getClientInfo() {
 
 		const nameText = document.getElementById("name")
 		const dobText = document.getElementById("dob")
+
+        // Iterate through MongoDB records until it finds a match
 		let isFound = false
 		for (let i = 0; i < records.length; i++) {
 
@@ -84,12 +98,14 @@ const Confirmation = () => {
 
 		}
 
+        // Error message for when client information is not found
 		if (!isFound) {
 			alert("Could not find specified client")
 		}
 
 	}
 
+    // ClientInfo is empty if isInfo is False. Otherwise, it shows the client information.
 	const clientInfo = <ClientInfo fromEdit={location.state.fromEdit} isInfo={isInfoShown} data={data} />
 
 	return (
@@ -103,7 +119,7 @@ const Confirmation = () => {
 
 			<form style={{margin: '1.5rem'}}>
 
-				<label htmlFor="name">Name of client</label><br />
+			  	<label htmlFor="name">Name of client</label><br />
 				<input type="text" id="name" name="name" /><br />
 
 				<label htmlFor="dob">DOB of client (mm/dd/yyyy)</label><br />
@@ -118,15 +134,18 @@ const Confirmation = () => {
 
 		</>
 	)
+
 }
 
 const ClientInfo = props => {
 
+    // For navigating between webpages
 	const navigate = useNavigate()
 
-
+    // AskConfirm returns different DOM elements (edit/inactivate/activate client) based on how the user got to this webpage
 	const AskConfirm = () => {
 
+        // Activate client by setting 'active' to true
 		async function activate() {
 
 			await fetch(`http://cfg-thrive.herokuapp.com/update/${props.data._id}`, {
@@ -142,6 +161,7 @@ const ClientInfo = props => {
 
 		}
 
+        // Inactivate client by setting 'active' to false
 		async function inactivate() {
 
 			await fetch(`http://cfg-thrive.herokuapp.com/update/${props.data._id}`, {
@@ -157,6 +177,7 @@ const ClientInfo = props => {
 
 		}
 
+        // Return different elements based on the value of fromEdit
 		if (props.fromEdit) {
 
 			return (
@@ -167,7 +188,7 @@ const ClientInfo = props => {
 
 		} else {
 
-			return (
+            return (
 				<>
 					<button onClick={inactivate}>Inactivate Client</button>
 					<button onClick={activate}>Activate Client</button>
@@ -179,6 +200,8 @@ const ClientInfo = props => {
 	}
 	
 	if (props.isInfo) {
+
+        // If isInfo is true, show client information and AskConfirm button
 		return (
 			<>	
 				<h4>Client Information:</h4>
@@ -192,8 +215,12 @@ const ClientInfo = props => {
 				<AskConfirm />
 			</>
 		)
+
 	} else {
+
+        // Otherwise, return an empty element
 		return(<></>)
+
 	}
 
 }
