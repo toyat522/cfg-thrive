@@ -71,19 +71,24 @@ const Stats = () => {
             // Get the i-th record (client information)
             const curr = records[i]
 
-            // Add corresponding gender value
-            numGender[genderVals.indexOf(curr.gender)]++
+            // Only display active clients
+            if (curr.active) {
 
-            // Check for race distirbution
-            curr.race.forEach((race, index) => {
-                numRace[raceVals.indexOf(race)]++
-                numGenderRace[genderVals.indexOf(curr.gender)][raceVals.indexOf(race)]++
-            })
+                // Add corresponding gender value
+                numGender[genderVals.indexOf(curr.gender)]++
 
-            // Check for service distribution
-            curr.service.forEach((service, index) => {
-                numService[serviceVals.indexOf(service)]++
-            })
+                // Check for race distirbution
+                curr.race.forEach((race, index) => {
+                    numRace[raceVals.indexOf(race)]++
+                    numGenderRace[genderVals.indexOf(curr.gender)][raceVals.indexOf(race)]++
+                })
+
+                // Check for service distribution
+                curr.service.forEach((service, index) => {
+                    numService[serviceVals.indexOf(service)]++
+                })
+
+            }
 
         }
 
