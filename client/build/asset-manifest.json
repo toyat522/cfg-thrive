@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/static/css/main.630ab8fc.css",
-    "main.js": "/static/js/main.5310dc23.js",
+    "main.js": "/static/js/main.6db88beb.js",
     "static/media/TandSLogo.jpg": "/static/media/TandSLogo.32aac216a73bb6f056ff.jpg",
     "index.html": "/index.html",
     "main.630ab8fc.css.map": "/static/css/main.630ab8fc.css.map",
-    "main.5310dc23.js.map": "/static/js/main.5310dc23.js.map"
+    "main.6db88beb.js.map": "/static/js/main.6db88beb.js.map"
   },
   "entrypoints": [
     "static/css/main.630ab8fc.css",
-    "static/js/main.5310dc23.js"
+    "static/js/main.6db88beb.js"
   ]
 }

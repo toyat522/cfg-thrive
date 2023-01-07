@@ -167,7 +167,6 @@ const Questions = () => {
 	// Function to be called when the submit button is clicked
 	async function onSubmit(e) {
 
-        // TODO: alert (feedback) when data updated
 		e.preventDefault();
 		updateGoals()
 	 
@@ -241,6 +240,7 @@ const Questions = () => {
 		}
 
         // Navigate to the home page after updating DB
+		alert("Client was successfully added to the database")
 	   	navigate("/");
 
 	}

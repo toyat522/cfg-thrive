@@ -23,7 +23,7 @@ const Stats = () => {
             const toRef = setTimeout(() => {
                 setShowComponent(true);
                 clearTimeout(toRef);
-            }, 1500);
+            }, 2000);
         }
     }, [showComponent]);
 
@@ -272,6 +272,10 @@ const Stats = () => {
                     style={{margin: '1rem 1rem 1rem'}}>
                     Back to home
                 </button>
+                <br />
+                <center>
+                    <h3>Loading...</h3>
+            `   </center>`
             </>
         )
     }
