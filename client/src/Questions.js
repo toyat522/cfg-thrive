@@ -248,7 +248,7 @@ const Questions = () => {
 	// Once goals are rendered, add their descriptions (only once)
 	const [descAdded, setDescAdded] = useState(false)
 	const goalsDiv = document.getElementById("goals")
-	if (!descAdded && goalsDiv != null && goalsDiv.children.length != 0 && !location.state.newClient) {
+	if (!descAdded && goalsDiv != null && goalsDiv.children.length !== 0 && !location.state.newClient) {
 		setDescAdded(true)
 
 		for (let i = 0; i < numGoals; i++) {
