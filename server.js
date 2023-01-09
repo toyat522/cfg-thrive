@@ -42,10 +42,6 @@ app
   	.use(express.static(path.join(__dirname, './client/build')))
   	.listen(port, () => {
 
-  		// Perform a database connection when server starts
-  		dbo.connectToServer(function (err) {
-    		if (err) console.error(err);
-  		});
   		console.log(`Server is running on port: ${port}`);
 
 	})
