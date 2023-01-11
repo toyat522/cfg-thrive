@@ -150,14 +150,28 @@ const ClientInfo = props => {
         // Activate client by setting 'active' to true
 		async function activate() {
 
-			await fetch(`http://cfg-thrive.herokuapp.com/update/${props.data._id}`, {
-			 	method: "POST",
-			 	body: JSON.stringify({active: true}),
-			 	headers: {
-			   		'Content-Type': 'application/json'
-			 	},
-		   	});
-				
+            if (env === 'production') {
+
+				await fetch(`http://cfg-thrive.herokuapp.com/update/${props.data._id}`, {
+					method: "POST",
+					body: JSON.stringify({active: true}),
+					headers: {
+						'Content-Type': 'application/json'
+					},
+				});
+
+            } else {
+
+				await fetch(`http://localhost:5000/update/${props.data._id}`, {
+					method: "POST",
+					body: JSON.stringify({active: true}),
+					headers: {
+						'Content-Type': 'application/json'
+					},
+				});
+
+            }
+
 			alert("Client was successfully activated")
 			navigate('/')
 
@@ -166,16 +180,33 @@ const ClientInfo = props => {
         // Inactivate client by setting 'active' to false
 		async function inactivate() {
 
-			await fetch(`http://cfg-thrive.herokuapp.com/update/${props.data._id}`, {
-			 	method: "POST",
-			 	body: JSON.stringify({active: false}),
-			 	headers: {
-			   		'Content-Type': 'application/json'
-			 	},
-		   	});
-	
-			alert("Client was successfully inactivated")
-			navigate('/')
+            if (env === 'production') {
+
+				await fetch(`http://cfg-thrive.herokuapp.com/update/${props.data._id}`, {
+					method: "POST",
+					body: JSON.stringify({active: false}),
+					headers: {
+						'Content-Type': 'application/json'
+					},
+				});
+
+				alert("Client was successfully inactivated")
+				navigate('/')
+
+            } else {
+
+				await fetch(`http://localhost:5000/update/${props.data._id}`, {
+					method: "POST",
+					body: JSON.stringify({active: false}),
+					headers: {
+						'Content-Type': 'application/json'
+					},
+				});
+
+				alert("Client was successfully inactivated")
+				navigate('/')
+
+            }
 
 		}
 

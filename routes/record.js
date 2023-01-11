@@ -108,7 +108,7 @@ router.route("/updatepassword/:id").post(function (req, response) {
     let myquery = { username: req.params.id }
     const updated = req.body
     db_connect
-        .collection("records")
+        .collection("userName")
         .updateOne(myquery, {$set: updated}, function (err, res) {
             if (err) throw err
             response.json(res)

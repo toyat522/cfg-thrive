@@ -1,43 +1,49 @@
 import { React, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios';
+import axios from 'axios'
+const bcrypt = require("bcryptjs")
 
 // Login page to authenticate user
 const Passwords = () => {
 
-    // States to set entered username and password
-    const [username, setUserName] = useState()
-    const [password, setPassword] = useState()
-
     // For navigating between webpages
     const navigate = useNavigate()
 
-    // Check if client has login credentials to access page
+    // Check if client has login credentials in session storage to access page
     const auth = async () => {
 
         try {
 
-            // Checks if username and password are correct
-            await axios.post('/login', {
-                username: username,
-                password: password
-            })
-
-            // If it is correct, then create an 'authentication token' in the session storage
-            sessionStorage.setItem('token', JSON.stringify({ username: username, password: password }))
-
-            // Redirect to home page
-            alert("Success! Redirecting to home page")
-            navigate('/')
+            const res = await axios.post('/login', JSON.parse(sessionStorage.getItem('token')))
+            if (res.data !== 'authorized') {
+                navigate('/login')
+            }
 
         } catch (e) {
-
-            // Error message to show when authentication failed
-            alert("Authentication failed")
-
+            navigate('/login')
         }
 
-    };
+    }
+    auth()
+
+    // Activate client by setting 'active' to true
+    async function updatePass(user) {
+
+        let pass = prompt("Enter new password")
+        pass = await bcrypt.hash(pass, 10);
+        console.log(pass)
+        await fetch(`http://cfg-thrive.herokuapp.com/updatepassword/${user}`, {
+            method: "POST",
+            body: JSON.stringify({password: pass}),
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        })
+
+        alert("Password was successfully changed")
+        navigate('/')
+
+    }
 
     return (
         <>
@@ -47,18 +53,15 @@ const Passwords = () => {
                 style={{margin: '1rem 1rem 1rem'}}>
                 Back to home
             </button>
+
             <div style={{margin: '1rem 1rem 1rem'}}>
-                <form>
-                    <label>
-                        <p>Username</p>
-                        <input type="text" onChange={e => setUserName(e.target.value)} />
-                    </label>
-                    <label>
-                        <p>Password</p>
-                        <input type="password" onChange={e => setPassword(e.target.value)} />
-                    </label>
-                    <button type="button" onClick={auth}>Login</button>
-                </form>
+                <h3>Users:</h3>
+                <h4>Authorized</h4>
+                <button type="button" onClick={()=>{updatePass("authorized")}}>Change password</button>
+                <h4>Standard</h4>
+                <button type="button" onClick={()=>{updatePass("standard")}}>Change password</button>
+                <h4>View</h4>
+                <button type="button" onClick={()=>{updatePass("view")}}>Change password</button>
             </div>
         </>
     )

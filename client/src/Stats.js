@@ -278,7 +278,7 @@ const Stats = () => {
                 <br />
                 <center>
                     <h3>Loading...</h3>
-            `   </center>`
+                </center>
             </>
         )
     }
