@@ -3,7 +3,7 @@ const bodyParser = require("body-parser")
 const session = require("express-session")
 const cors = require("cors");
 const path = require("path")
-require("dotenv").config({ path: "../../config.env" });
+require("dotenv").config({ path: "./config.env" });
 
 // Port to deploy website
 const port = process.env.PORT || 8080;
