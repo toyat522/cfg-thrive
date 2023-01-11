@@ -3,8 +3,6 @@ import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
-const env = process.env.NODE_ENV
-
 const Questions = () => {
 
     // For navigating between webpages
@@ -18,13 +16,7 @@ const Questions = () => {
 
      		let response;
 
-			// If environment is production, get data from cfg-thrive webpage)
-            if (env === 'production') {
-                response = await fetch(`http://cfg-thrive.herokuapp.com/record/`);
-            } else {
-                response = await fetch(`http://localhost:5000/record/`);
-            }
-
+            response = await fetch(`http://cfg-thrive.herokuapp.com/record/`);
 			if (!response.ok) {
 				const message = `An error occurred: ${response.statusText}`;
 				window.alert(message);
@@ -178,66 +170,23 @@ const Questions = () => {
 		if (location.state.newClient) {
 
             // If a new client is being made, add a new document to MongoDB
-
-            if (env === 'production') {
-
-				// If environment is production, get data from cfg-thrive webpage)
-                await fetch("http://cfg-thrive.herokuapp.com/record/add", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(data),
-				})
-				.catch(error => {
-					window.alert(error);
-					return;
-				})
-
-            } else {
-
-				// If environment is not in production, get data from localhost)
-                await fetch("http://localhost:5000/record/add", {
-					method: "POST",
-					headers: {
-						"Content-Type": "application/json",
-					},
-					body: JSON.stringify(data),
-				})
-				.catch(error => {
-					window.alert(error);
-					return;
-				})
-
-            }
+			await fetch("http://cfg-thrive.herokuapp.com/record/add", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(data),
+			})
 
 		} else {
 
-			// If a previously made client is being updated, update the corresponding document
-
-            if (env === 'production') {
-
-				// If environment is production, get data from cfg-thrive webpage)
-				await fetch(`http://cfg-thrive.herokuapp.com/update/${location.state.id}`, {
-					method: "POST",
-					body: JSON.stringify(data),
-					headers: {
-						'Content-Type': 'application/json'
-					},
-				})
-
-            } else {
-
-				// If environment is not in production, get data from localhost)
-				await fetch(`http://localhost:5000/update/${location.state.id}`, {
-					method: "POST",
-					body: JSON.stringify(data),
-					headers: {
-						'Content-Type': 'application/json'
-					},
-				})
-
-            }
+			await fetch(`http://cfg-thrive.herokuapp.com/update/${location.state.id}`, {
+				method: "POST",
+				body: JSON.stringify(data),
+				headers: {
+					'Content-Type': 'application/json'
+				},
+			})
 
 		}
 

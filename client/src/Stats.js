@@ -5,8 +5,6 @@ import axios from 'axios';
 import Chart from 'chart.js/auto'
 import { Bar, Pie } from 'react-chartjs-2'
 
-const env = process.env.NODE_ENV
-
 const Stats = () => {
 
     // For navigating between webpages
@@ -32,15 +30,7 @@ const Stats = () => {
     useEffect(() => {
         async function getRecords() {
 
-            let response;
-
-            // If environment is production, get data from cfg-thrive webpage)
-            if (env === 'production') {
-                response = await fetch(`http://cfg-thrive.herokuapp.com/record/`);
-            } else {
-                response = await fetch(`http://localhost:5000/record/`);
-            }
-
+            let response = await fetch(`http://cfg-thrive.herokuapp.com/record/`);
             if (!response.ok) {
                 const message = `An error occurred: ${response.statusText}`;
                 window.alert(message);

@@ -29,19 +29,29 @@ const Passwords = () => {
     // Activate client by setting 'active' to true
     async function updatePass(user) {
 
-        let pass = prompt("Enter new password")
-        pass = await bcrypt.hash(pass, 10);
-        console.log(pass)
-        await fetch(`http://cfg-thrive.herokuapp.com/updatepassword/${user}`, {
-            method: "POST",
-            body: JSON.stringify({password: pass}),
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        })
+        try {
 
-        alert("Password was successfully changed")
-        navigate('/')
+            let pass = prompt("Enter new password")
+            pass = await bcrypt.hash(pass, 10);
+            if (pass) {
+
+                console.log(JSON.stringify({password: pass}))
+                await fetch(`http://cfg-thrive.herokuapp.com/updatepassword/${user}`, {
+                    method: "POST",
+                    body: JSON.stringify({password: pass}),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                })
+
+                alert("Password was successfully changed")
+                navigate('/')
+
+            }
+
+        } catch(e) {
+            alert("Password change failed")
+        }
 
     }
 

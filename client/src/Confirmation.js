@@ -3,9 +3,6 @@ import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 
-// Get process environment from heroku environmental variables
-const env = process.env.NODE_ENV
-
 // Confirmation page to edit/activate/inactivate client (path: /confirm)
 const Confirmation = () => {
 
@@ -18,14 +15,7 @@ const Confirmation = () => {
  	useEffect(() => {
    		async function getRecords() {
 
-     		let response;
-
-			// If environment is production, get data from cfg-thrive webpage)
-            if (env === 'production') {
-                response = await fetch(`http://cfg-thrive.herokuapp.com/record/`);
-            } else {
-                response = await fetch(`http://localhost:5000/record/`);
-            }
+     		let response = await fetch(`http://cfg-thrive.herokuapp.com/record/`);
 
             // Error message
 			if (!response.ok) {
@@ -150,27 +140,13 @@ const ClientInfo = props => {
         // Activate client by setting 'active' to true
 		async function activate() {
 
-            if (env === 'production') {
-
-				await fetch(`http://cfg-thrive.herokuapp.com/update/${props.data._id}`, {
-					method: "POST",
-					body: JSON.stringify({active: true}),
-					headers: {
-						'Content-Type': 'application/json'
-					},
-				});
-
-            } else {
-
-				await fetch(`http://localhost:5000/update/${props.data._id}`, {
-					method: "POST",
-					body: JSON.stringify({active: true}),
-					headers: {
-						'Content-Type': 'application/json'
-					},
-				});
-
-            }
+			await fetch(`http://cfg-thrive.herokuapp.com/update/${props.data._id}`, {
+				method: "POST",
+				body: JSON.stringify({active: true}),
+				headers: {
+					'Content-Type': 'application/json'
+				},
+			});
 
 			alert("Client was successfully activated")
 			navigate('/')
@@ -180,33 +156,16 @@ const ClientInfo = props => {
         // Inactivate client by setting 'active' to false
 		async function inactivate() {
 
-            if (env === 'production') {
+			await fetch(`http://cfg-thrive.herokuapp.com/update/${props.data._id}`, {
+				method: "POST",
+				body: JSON.stringify({active: false}),
+				headers: {
+					'Content-Type': 'application/json'
+				},
+			});
 
-				await fetch(`http://cfg-thrive.herokuapp.com/update/${props.data._id}`, {
-					method: "POST",
-					body: JSON.stringify({active: false}),
-					headers: {
-						'Content-Type': 'application/json'
-					},
-				});
-
-				alert("Client was successfully inactivated")
-				navigate('/')
-
-            } else {
-
-				await fetch(`http://localhost:5000/update/${props.data._id}`, {
-					method: "POST",
-					body: JSON.stringify({active: false}),
-					headers: {
-						'Content-Type': 'application/json'
-					},
-				});
-
-				alert("Client was successfully inactivated")
-				navigate('/')
-
-            }
+			alert("Client was successfully inactivated")
+			navigate('/')
 
 		}
 

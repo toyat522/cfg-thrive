@@ -68,7 +68,7 @@ router.post("/login", async (req, res) => {
 
     try {
 
- 	    let db_connect = dbo.getDb()
+        let db_connect = dbo.getDb()
         const user = await db_connect
             .collection("userData")
             .findOne({ username: req.body.username })
@@ -108,7 +108,7 @@ router.route("/updatepassword/:id").post(function (req, response) {
     let myquery = { username: req.params.id }
     const updated = req.body
     db_connect
-        .collection("userName")
+        .collection("userData")
         .updateOne(myquery, {$set: updated}, function (err, res) {
             if (err) throw err
             response.json(res)
