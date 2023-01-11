@@ -101,4 +101,18 @@ router.post("/login", async (req, res) => {
 
 })
 
+// This section will help you update a record by id.
+router.route("/updatepassword/:id").post(function (req, response) {
+    let db_connect = dbo.getDb()
+    console.log(req.params.id)
+    let myquery = { username: req.params.id }
+    const updated = req.body
+    db_connect
+        .collection("records")
+        .updateOne(myquery, {$set: updated}, function (err, res) {
+            if (err) throw err
+            response.json(res)
+        })
+})
+
 module.exports = router
