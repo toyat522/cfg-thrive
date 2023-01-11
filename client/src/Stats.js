@@ -229,13 +229,16 @@ const Stats = () => {
             </>
         );
     };
+
     // Need to be authenticated to access webpage
     const auth = async () => {
+
         try {
-            const res = await axios.get('/login', { auth: JSON.parse(sessionStorage.getItem('token')) })
+            await axios.post('/login', JSON.parse(sessionStorage.getItem('token')))
         } catch (e) {
             navigate('/login')
         }
+
     }
     auth()
 

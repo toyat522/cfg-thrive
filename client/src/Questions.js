@@ -77,9 +77,10 @@ const Questions = () => {
 
 	// Check if client has login credentials to access page
 	const auth = async () => {
+
 		try {
 
-			const res = await axios.get('/login', { auth: JSON.parse(sessionStorage.getItem('token')) })
+			const res = await axios.post('/login', JSON.parse(sessionStorage.getItem('token')))
 			if (location.state.newClient && res.data !== 'authorized') {
 				navigate('/login')
 			} else if (res.data === 'view') {
@@ -89,6 +90,7 @@ const Questions = () => {
 		} catch (e) {
 			navigate('/login')
 		}
+
 	}
 	auth()
 

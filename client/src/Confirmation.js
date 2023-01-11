@@ -46,9 +46,10 @@ const Confirmation = () => {
 
 	// Check if client has login credentials in session storage to access page
 	const auth = async () => {
+
 		try {
 
-			const res = await axios.get('/login', { auth: JSON.parse(sessionStorage.getItem('token')) })
+			const res = await axios.post('/login', JSON.parse(sessionStorage.getItem('token')))
 			if (location.state.fromEdit && !(res.data === 'authorized' || res.data === 'standard')) {
 				navigate('/login')
 			} else if (!location.state.fromEdit && res.data !== 'authorized') {
@@ -60,6 +61,7 @@ const Confirmation = () => {
 		} catch (e) {
 			navigate('/login')
 		}
+
 	}
 	auth()
 

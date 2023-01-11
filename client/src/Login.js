@@ -18,10 +18,13 @@ const Login = () => {
 	  	try {
 
             // Checks if username and password are correct
-			const res = await axios.get('/login', { auth: { username: username, password: password } })
+			await axios.post('/login', {
+                username: username,
+                password: password
+            })
 
             // If it is correct, then create an 'authentication token' in the session storage
-			sessionStorage.setItem('token', JSON.stringify({username: username, password: password}))
+			sessionStorage.setItem('token', JSON.stringify({ username: username, password: password }))
 
             // Redirect to home page
 			alert("Success! Redirecting to home page")
