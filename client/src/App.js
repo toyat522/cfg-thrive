@@ -4,6 +4,7 @@ import Questions from './Questions'
 import Stats from './Stats'
 import Login from './Login'
 import Confirmation from './Confirmation'
+import Passwords from './Passwords'
 
 // Create webpages according to their paths
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
 				<Route path='/questions' element={<Questions />} />
 				<Route path='/confirm' element={<Confirmation />} />
 				<Route path='/stats' element={<Stats />} />
+				<Route path='/passwords' element={<Passwords />} />
 			</Routes>
 		</BrowserRouter>
 	)
