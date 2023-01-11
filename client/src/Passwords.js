@@ -35,7 +35,6 @@ const Passwords = () => {
             pass = await bcrypt.hash(pass, 10);
             if (pass) {
 
-                console.log(JSON.stringify({password: pass}))
                 await fetch(`http://cfg-thrive.herokuapp.com/updatepassword/${user}`, {
                     method: "POST",
                     body: JSON.stringify({password: pass}),
